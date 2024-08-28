@@ -1,0 +1,212 @@
+1. user for the first time test
+ 
+response code 200 : success
+
+var settings = {
+  "url": "https://bfhldevapigw.healthrx.co.in/automation-campus/create/user",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "roll-number": "24034592039",
+    "Content-Type": "application/json"
+  },
+  "data": JSON.stringify({"firstName":"Kanak","lastName":"G","phoneNumber":6261766613,"emailId":"testans@gmail.com"}),
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+2. duplicate phone number test
+
+response code 400 : Bad Request
+
+var settings = {
+  "url": "https://bfhldevapigw.healthrx.co.in/automation-campus/create/user",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "roll-number": "24034592040",
+    "Content-Type": "application/json"
+  },
+  "data": JSON.stringify({"firstName":"rupesh","lastName":"bhatia","phoneNumber":6261766613,"emailId":"rupesh@gmail.com"}),
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+{
+    "is_success": false,
+    "message": "phoneNumber has already been used."
+}
+
+3. Duplicate Email ID Test
+
+response code 400 : Bad Request
+
+var settings = {
+  "url": "https://bfhldevapigw.healthrx.co.in/automation-campus/create/user",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "roll-number": "24034592042",
+    "Content-Type": "application/json"
+  },
+  "data": JSON.stringify({"firstName":"bhavesh","lastName":"david","phoneNumber":6561166633,"emailId":"rupesh@gmail.com"}),
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+{
+    "is_success": false,
+    "message": "emailId has already been used."
+}
+
+4. Missing Roll Number Test
+
+response code 401 : Unauthorized
+
+var settings = {
+  "url": "https://bfhldevapigw.healthrx.co.in/automation-campus/create/user",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "roll-number": "",
+    "Content-Type": "application/json"
+  },
+  "data": JSON.stringify({"firstName":"ramesh","lastName":"bhavesh","phoneNumber":8446545121,"emailId":"ramesh@gmail.com"}),
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+5. Invalid Phone Number Format Test
+
+response code 400 : Bad Request
+
+var settings = {
+  "url": "https://bfhldevapigw.healthrx.co.in/automation-campus/create/user",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "roll-number": "240345920028",
+    "Content-Type": "application/json"
+  },
+  "data": JSON.stringify({"firstName":"sumesh","lastName":"bavesh","phoneNumber":"invalid_phone","emailId":"sumesh@gmail.com"}),
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+6. Minimum Boundary Testing for Phone Number
+
+response code 400 : Bad Request
+
+var settings = {
+  "url": "https://bfhldevapigw.healthrx.co.in/automation-campus/create/user",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "roll-number": "240345920029",
+    "Content-Type": "application/json"
+  },
+  "data": JSON.stringify({"firstName":"samesh","lastName":"bhhavesh","phoneNumber":100,"emailId":"suressh@gmail.com"}),
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+7.  Invalid Content-Type Header Test
+
+response code 400 : Bad Request
+
+var settings = {
+  "url": "https://bfhldevapigw.healthrx.co.in/automation-campus/create/user",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "roll-number": "240345920021",
+    "Content-Type": "text/plain"
+  },
+  "data": "{\r\n\"firstName\":\"Cherry\",\r\n\"lastName\":\"berry\",\r\n\"phoneNumber\": 8446415121, \r\n\"emailId\":\"cherry@gmail.com\"\r\n}",
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+8. Maximum Boundary Testing for Phone Number
+
+response code 400 : Bad Request
+
+var settings = {
+  "url": "https://bfhldevapigw.healthrx.co.in/automation-campus/create/user",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "roll-number": "240345920022",
+    "Content-Type": "application/json"
+  },
+  "data": JSON.stringify({"firstName":"Chery","lastName":"bery","phoneNumber":84464445121,"emailId":"berry@gmail.com"}),
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+9. Case Sensitive Email 
+
+response code 200 : success
+
+var settings = {
+  "url": "https://bfhldevapigw.healthrx.co.in/automation-campus/create/user",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "roll-number": "45",
+    "Content-Type": "application/json"
+  },
+  "data": JSON.stringify({
+    "firstName": "kanak",
+    "lastName": "Raut",
+    "phoneNumber": 4567239817,
+    "emailId": "HHHH@gmail.com"
+  }),
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+10. SQL Injection
+
+response code 400 : Bad Request
+
+var settings = {
+  "url": "https://bfhldevapigw.healthrx.co.in/automation-campus/create/user",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "roll-number": "1",
+    "Content-Type": "application/json"
+  },
+  "data": JSON.stringify({
+    "firstName": "Akshat",
+    "lastName": "Raut",
+    "phoneNumber": 222222222,
+    "emailId": "ha88@gmail.com' OR '1'='1"
+  }),
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+
+
